@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView
+        android:id="@+id/series_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       />
+    <include
+        android:id="@+id/empty_layout"
+        layout="@layout/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

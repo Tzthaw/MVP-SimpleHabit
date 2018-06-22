@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/meditation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/biggest_margin"
+        android:textColor="@color/blue_grey_500"
+        android:textSize="@dimen/text_big"
+        android:textStyle="bold" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/meditationview_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_below="@+id/meditation_title"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_marginStart="@dimen/normal_margin">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

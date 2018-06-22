@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.ActivityCategoryDetail"
+    tools:showIn="@layout/activity_category_detail">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/download_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_margin="@dimen/big_margin"
+            android:background="@color/flat_red"
+            android:gravity="bottom"
+            android:textColor="#FAFAFA">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/biggest_margin"
+                android:layout_marginLeft="@dimen/biggest_margin"
+                android:layout_marginStart="@dimen/biggest_margin"
+                android:text="Download"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_big"
+                android:textStyle="bold" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:layout_marginRight="@dimen/big_margin" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/big_margin"
+            android:layout_marginRight="@dimen/big_margin"
+            android:background="@drawable/text_selector"
+            android:padding="@dimen/biggest_margin">
+
+            <net.aungpyaephyo.mmtextview.components.MMTextView
+                android:id="@+id/category_detail_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingMultiplier="1.3"
+                android:maxLines="3"
+                android:textSize="@dimen/text_big" />
+
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_margin">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/big_margin">
+
+                <TextView
+                    android:id="@+id/session_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/big_margin"
+                    android:text="@string/session_title"
+                    android:padding="@dimen/big_margin"
+                    android:textColor="@color/flat_red"
+                    android:textSize="@dimen/text_big"
+                    android:textStyle="bold" />
+
+                <com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView
+                    android:id="@+id/category_detail_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/session_title"
+                    android:layout_margin="@dimen/normal_margin">
+
+                </com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_light_background"
+    android:layout_margin="@dimen/biggest_margin"
+    android:elevation="@dimen/cardview_elavation">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/biggest_margin"
+        android:text="Progress"
+        android:textStyle="bold"
+        android:textColor="@color/blue_grey_500"
+        android:textSize="@dimen/text_big" />
+
+    <com.example.ptut.padc_simplehabit_one.datas.views.ViewPodUserProfile
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/total_session_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_margin"
+            android:layout_weight="3">
+
+            <TextView
+                android:id="@+id/text_total_session"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/flat_blue"
+                android:textSize="@dimen/text_big" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_total_session"
+                android:layout_margin="@dimen/big_margin"
+                android:gravity="center"
+                android:text="Total Session"
+                android:textColor="@color/flat_blue"
+                android:textSize="@dimen/text_big" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/total_minute_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_margin"
+            android:layout_weight="3">
+
+            <TextView
+                android:id="@+id/text_total_minute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/material_green"
+                android:textSize="@dimen/text_big" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_total_minute"
+                android:layout_margin="@dimen/big_margin"
+                android:gravity="center"
+                android:text="Total Session"
+                android:textColor="@color/material_green"
+                android:textSize="@dimen/text_big" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/total_day_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_margin"
+            android:layout_weight="3">
+
+            <TextView
+                android:id="@+id/text_day_streak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/material_red"
+                android:textSize="@dimen/text_big" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_day_streak"
+                android:layout_margin="@dimen/big_margin"
+                android:gravity="center"
+                android:text="Total DayStreak"
+                android:textColor="@color/material_red"
+                android:textSize="@dimen/text_big" />
+        </RelativeLayout>
+
+    </com.example.ptut.padc_simplehabit_one.datas.views.ViewPodUserProfile>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:textColor="@color/blue_grey_500"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_big"
+        android:layout_margin="@dimen/biggest_margin"/>
+    <com.example.ptut.padc_simplehabit_one.datas.views.ViewPodCalendar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/biggest_margin">
+        
+        <CalendarView
+            android:id="@+id/history_calendar"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:firstDayOfWeek="2"
+            android:maxDate="01/01/2019"
+            android:minDate="01/01/2016"/>
+    </com.example.ptut.padc_simplehabit_one.datas.views.ViewPodCalendar>
+</LinearLayout>
