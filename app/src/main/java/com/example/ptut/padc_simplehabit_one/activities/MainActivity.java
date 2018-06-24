@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
 
         fragmentSeries = (FragmentSeries) adapter.getItem(1);
 
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
