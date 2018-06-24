@@ -21,14 +21,17 @@ import android.widget.Toast;
 import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.activities.base.BaseActivity;
 import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
-import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
+import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
 import com.example.ptut.padc_simplehabit_one.fragments.FragmentOnGo;
 import com.example.ptut.padc_simplehabit_one.fragments.FragmentSeries;
 import com.example.ptut.padc_simplehabit_one.fragments.FragmentTeachers;
+import com.example.ptut.padc_simplehabit_one.mvp.presenters.HomePresenterDelegate;
 import com.example.ptut.padc_simplehabit_one.mvp.presenters.SeriesDetailsPresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesView;
+import com.example.ptut.padc_simplehabit_one.mvp.presenters.SeriesPresenter;
+import com.example.ptut.padc_simplehabit_one.mvp.views.HomeScreenView;
+import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesDetailView;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity implements EmptyClickListener, SeriesView {
+public class MainActivity extends BaseActivity implements EmptyClickListener, SeriesDetailView, HomeScreenView, HomePresenterDelegate {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
@@ -52,6 +55,10 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
 
     ViewPagerAdapter adapter;
     SeriesDetailsPresenter detailsPresenter;
+    SeriesPresenter seriesPresenter;
+
+
+    FragmentSeries fragmentSeries;
 
 
     @Override
@@ -60,11 +67,13 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this, this);
 
-        detailsPresenter=new SeriesDetailsPresenter(this);
+        detailsPresenter = new SeriesDetailsPresenter(this);
         detailsPresenter.onCreate();
 
         setSupportActionBar(toolbar);
 
+
+        seriesPresenter = new SeriesPresenter(this);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -86,10 +95,11 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
             }
         });
 
+        fragmentSeries = (FragmentSeries) adapter.getItem(1);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
-
         adapter.addFragment(FragmentOnGo.newInstance(), "On The Go");
         adapter.addFragment(FragmentSeries.newInstance(), "SERIES");
         adapter.addFragment(FragmentTeachers.newInstance(), "TEACHERS");
@@ -99,8 +109,6 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
     @Override
     public void onEmptyClick() {
     }
-
-
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -134,7 +142,7 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main,menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -142,7 +150,7 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void getTabCurrentItem(CurrentProgramVO currentProgramVO, ImageView imageView) {
-        Intent intent=ActivityCategoryDetail.getInstance(this,currentProgramVO.getProgramId(),Constant.CURRENT_ID);
+        Intent intent = ActivityCategoryDetail.getInstance(this, currentProgramVO.getProgramId(), Constant.CURRENT_ID);
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this, imageView, "profile");
         startActivity(intent, options.toBundle());
@@ -151,7 +159,7 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void getTabCategoryItem(ProgramVO programVO, ImageView imageView) {
-        Intent intent=ActivityCategoryDetail.getInstance(this,programVO.getProgramId(), Constant.PROGRAM_ID);
+        Intent intent = ActivityCategoryDetail.getInstance(this, programVO.getProgramId(), Constant.PROGRAM_ID);
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this, imageView, "profile");
         startActivity(intent, options.toBundle());
@@ -169,7 +177,18 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
 
     @Override
     public void displayErrorMsg(String msg) {
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void displayAllDatas(List<HomeScreenVO> homeScreenVOS) {
+        fragmentSeries.displayDataFromActivity(homeScreenVOS);
+    }
+
+    @Override
+    public SeriesPresenter getPresenter() {
+        return seriesPresenter;
     }
 
 

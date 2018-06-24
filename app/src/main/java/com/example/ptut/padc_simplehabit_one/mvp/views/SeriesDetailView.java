@@ -7,7 +7,7 @@ import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
 import com.example.ptut.padc_simplehabit_one.mvp.views.base.BaseView;
 
-public interface SeriesView extends BaseView {
+public interface SeriesDetailView extends BaseView {
     void getTabCurrentItem(CurrentProgramVO currentProgramVO, ImageView imageView);
     void getTabCategoryItem(ProgramVO programVO, ImageView imageView);
     void displayCurrentData(CurrentProgramVO currentProgramVO);

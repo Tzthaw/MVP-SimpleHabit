@@ -4,19 +4,18 @@ import android.widget.ImageView;
 
 import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
-import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
 import com.example.ptut.padc_simplehabit_one.events.SeriesEvent;
 import com.example.ptut.padc_simplehabit_one.models.CurrentProgramModel;
 import com.example.ptut.padc_simplehabit_one.mvp.presenters.base.BasePresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesView;
+import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesDetailView;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class SeriesDetailsPresenter extends BasePresenter<SeriesView> implements ItemClickListener{
-    public SeriesDetailsPresenter(SeriesView view) {
+public class SeriesDetailsPresenter extends BasePresenter<SeriesDetailView> implements ItemClickListener{
+    public SeriesDetailsPresenter(SeriesDetailView view) {
         super(view);
     }
 
@@ -42,11 +41,6 @@ public class SeriesDetailsPresenter extends BasePresenter<SeriesView> implements
         view.getTabCurrentItem(programVO,imageView);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     public void onStart(){
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -56,20 +50,6 @@ public class SeriesDetailsPresenter extends BasePresenter<SeriesView> implements
         if(EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Subscribe

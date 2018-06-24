@@ -1,6 +1,5 @@
 package com.example.ptut.padc_simplehabit_one.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,34 +15,27 @@ import com.example.ptut.padc_simplehabit_one.R;
 import com.example.ptut.padc_simplehabit_one.activities.MainActivity;
 import com.example.ptut.padc_simplehabit_one.adapters.SeriesNewAdapter;
 import com.example.ptut.padc_simplehabit_one.controllers.EmptyClickListener;
-import com.example.ptut.padc_simplehabit_one.controllers.ItemClickListener;
-import com.example.ptut.padc_simplehabit_one.datas.entities.CategoriesProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.HomeScreenVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
-import com.example.ptut.padc_simplehabit_one.datas.entities.TopicVO;
 import com.example.ptut.padc_simplehabit_one.datas.views.EmptyLayout;
 import com.example.ptut.padc_simplehabit_one.fragments.base.BaseFragment;
-import com.example.ptut.padc_simplehabit_one.models.CurrentProgramModel;
-import com.example.ptut.padc_simplehabit_one.mvp.presenters.CategoryPresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.presenters.CurrentPresenter;
+import com.example.ptut.padc_simplehabit_one.mvp.presenters.HomePresenterDelegate;
 import com.example.ptut.padc_simplehabit_one.mvp.presenters.SeriesDetailsPresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.presenters.TopicPresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.views.CategoryView;
-import com.example.ptut.padc_simplehabit_one.mvp.views.CurrentView;
-import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesView;
-import com.example.ptut.padc_simplehabit_one.mvp.views.TopicView;
+import com.example.ptut.padc_simplehabit_one.mvp.presenters.SeriesPresenter;
+import com.example.ptut.padc_simplehabit_one.mvp.views.HomeScreenView;
+import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesDetailView;
+import com.example.ptut.padc_simplehabit_one.mvp.views.base.BaseView;
 import com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView;
 import com.example.ptut.padc_simplehabit_one.shared.UtilsHttp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FragmentSeries extends BaseFragment implements CurrentView,CategoryView,TopicView,SeriesView{
+public class FragmentSeries extends BaseFragment implements SeriesDetailView {
 
     @BindView(R.id.series_recycler)
     SmartRecyclerView seriesRecycler;
@@ -53,10 +45,8 @@ public class FragmentSeries extends BaseFragment implements CurrentView,Category
     SeriesNewAdapter seriesAdapter;
 
     EmptyClickListener emptyClickListener;
-    List<HomeScreenVO> homeScreenVOS;
-    CurrentPresenter currentPresenter;
-    CategoryPresenter categoryPresenter;
-    TopicPresenter topicPresenter;
+    SeriesPresenter seriesPresenter;
+    HomePresenterDelegate homePresenterDelegate;
     SeriesDetailsPresenter detailsPresenter;
 
     public static FragmentSeries newInstance() {
@@ -70,21 +60,14 @@ public class FragmentSeries extends BaseFragment implements CurrentView,Category
         View v = inflater.inflate(R.layout.layout_series, container, false);
         ButterKnife.bind(this, v);
 
-        homeScreenVOS=new ArrayList<>();
-        currentPresenter=new CurrentPresenter(this);
-        categoryPresenter=new CategoryPresenter(this);
-        topicPresenter=new TopicPresenter(this);
 
-
+        seriesPresenter=homePresenterDelegate.getPresenter();
         if(UtilsHttp.isNetworkAvailable(getContext())){
-            currentPresenter.onCreate();
+            seriesPresenter.onCreate();
 
         }else{
             Toast.makeText(getContext(),"No Internet Connection",Toast.LENGTH_SHORT).show();
         }
-
-
-        detailsPresenter.onCreate();
 
 
         emptyLayout.bindData(emptyClickListener);
@@ -101,31 +84,8 @@ public class FragmentSeries extends BaseFragment implements CurrentView,Category
     public void onAttach(Context context) {
         super.onAttach(context);
         emptyClickListener=(EmptyClickListener)context;
+        homePresenterDelegate=(HomePresenterDelegate)context;
         detailsPresenter=new SeriesDetailsPresenter((MainActivity)context);
-    }
-
-    @Override
-    public void getCurrentProgramData(CurrentProgramVO programVO) {
-        homeScreenVOS.add(programVO);
-        categoryPresenter.onCreate();
-    }
-
-    @SuppressLint("ShowToast")
-    @Override
-    public void displayErrorMsg(String msg) {
-        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT);
-    }
-
-    @Override
-    public void getCategoryData(List<CategoriesProgramVO> categoriesProgramVOS) {
-        homeScreenVOS.addAll(categoriesProgramVOS);
-        topicPresenter.onCreate();
-    }
-
-    @Override
-    public void getAllTopicData(List<TopicVO> topicVOS) {
-        homeScreenVOS.addAll(topicVOS);
-        seriesAdapter.setNewData(homeScreenVOS);
     }
 
     @Override
@@ -147,4 +107,17 @@ public class FragmentSeries extends BaseFragment implements CurrentView,Category
     public void displayCategoryData(ProgramVO programVO) {
 
     }
+
+
+    public void displayDataFromActivity(List<HomeScreenVO> homeScreenVOS) {
+        seriesAdapter.setNewData(homeScreenVOS);
+    }
+
+    @Override
+    public void displayErrorMsg(String msg) {
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+
+
 }

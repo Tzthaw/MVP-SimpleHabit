@@ -21,9 +21,8 @@ import com.example.ptut.padc_simplehabit_one.activities.base.BaseActivity;
 import com.example.ptut.padc_simplehabit_one.adapters.CategorySessionAdapter;
 import com.example.ptut.padc_simplehabit_one.datas.entities.CurrentProgramVO;
 import com.example.ptut.padc_simplehabit_one.datas.entities.ProgramVO;
-import com.example.ptut.padc_simplehabit_one.models.CurrentProgramModel;
 import com.example.ptut.padc_simplehabit_one.mvp.presenters.SeriesDetailsPresenter;
-import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesView;
+import com.example.ptut.padc_simplehabit_one.mvp.views.SeriesDetailView;
 import com.example.ptut.padc_simplehabit_one.shared.Constant;
 import com.example.ptut.padc_simplehabit_one.shared.SmartRecyclerView;
 
@@ -31,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ActivityCategoryDetail extends BaseActivity implements SeriesView{
+public class ActivityCategoryDetail extends BaseActivity implements SeriesDetailView {
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
     @BindView(R.id.toolbar)
