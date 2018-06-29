@@ -56,9 +56,8 @@ public class MainActivity extends BaseActivity implements EmptyClickListener, Se
     ViewPagerAdapter adapter;
     SeriesDetailsPresenter detailsPresenter;
     SeriesPresenter seriesPresenter;
-
-
     FragmentSeries fragmentSeries;
+    int a;
 
 
     @Override
